@@ -18,7 +18,7 @@
 
     <div v-if="showCarrinho" class="container-fluid carrinho-container">
       <div class="carrinho">
-        <div class="produtoNoCarrinho clearFix" v-for="(c, index) in carrinho">
+        <div class="produtoNoCarrinho clearFix" v-for="(c, index) in items">
           <div class="imagemProduto">
             <img :src="c.images[0]" :alt="c.name" :title="c.name" />
           </div>
@@ -217,7 +217,7 @@ export default {
     return {
       showCarrinho : false,
       linkAtivo : "",
-      carrinho : [],
+      items : [],
       total : 0
     }
   },
@@ -234,19 +234,20 @@ export default {
         }
     },
     savedProducts(){
-        this.carrinho = JSON.parse(localStorage.getItem('products'));
+        this.items = JSON.parse(localStorage.getItem('products'));
     },
     removeCarrinho(p, index){
-      this.carrinho = JSON.parse(localStorage.getItem('products'));
-      this.carrinho.shift(index);
-      localStorage.setItem("products", JSON.stringify(this.carrinho));
-      this.carrinho = JSON.parse(localStorage.getItem('products'));
+      let temp = JSON.parse(localStorage.getItem("products"));
+      temp.splice(index, index+1);
+      localStorage.setItem("products",JSON.stringify(temp));
+      this.items = temp;
+      this.savedProducts();
       this.totalCarrinho();
     },
     totalCarrinho(){
       this.total = 0;
-      for(var i=0; i<this.carrinho.length; i++){
-        this.total += this.carrinho[i].price.value;
+      for(var i=0; i<this.items.length; i++){
+        this.total += this.items[i].price.value;
       }
     }
   },
