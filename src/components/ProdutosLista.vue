@@ -61,7 +61,6 @@ export default {
             $e.parentElement.parentElement.nextElementSibling.children[0].firstChild.src = $e.src;
         },
         addCarrinho(p){
-            this.carrinho = JSON.parse(localStorage.getItem('products'));
             this.carrinho.push(p);
             localStorage.removeItem("products");
             localStorage.setItem("products", JSON.stringify(this.carrinho));
