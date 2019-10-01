@@ -17,7 +17,7 @@
                         <div class="descricao">
                             <p>{{produto.product.name}}</p>
                             <hr class="spliterProduto" />
-                            <span class="badgePreco">Melhor preço</span>
+                            <span class="badgePreco">Melhor preço</span><span class="back"></span>
                             <p class="parcelasProduto">10 x de <span class="txtBig">R$ 344,10</span> <span @click="addCarrinho(produto.product)" class="addCarrinho">Adicionar ao carrinho <span class="badgeLink">></span></span></p>
                             <p class="total-a-vista">ou <span class="txtBig">3441,00</span> à vista</p>
                         </div>
@@ -75,6 +75,8 @@ export default {
     .boxProduto{
         margin-top: 10px;
         background-color: #FFF;
+        box-shadow: 0 0 6px #333;
+        border-radius: 4px;
     }
 
     .galeria-container{
@@ -103,6 +105,7 @@ export default {
     }
 
     .descricao{
+        width: 100%;
         padding: 20px;
     }
 
@@ -112,10 +115,24 @@ export default {
 
     .badgePreco{
         background-color: #038ee2;
-        border-radius: 4px 100px 100px 4px;
         color: #FFF;
-        padding: 4px;
+        padding: 2px 4px 4px 4px;
         margin-top: 10px;
+        overflow: hidden;
+        border-radius: 4px 0 0 4px;
+    }
+
+    .back{
+        position: relative;
+        display: inline-block;
+        width: 0; 
+        height: 0; 
+        border-top: 13px solid transparent;
+        border-bottom: 13px solid transparent;
+        border-left: 13px solid #038ee2;
+        top: 8px;
+        
+        
     }
 
     .parcelasProduto{
