@@ -238,8 +238,9 @@ export default {
     },
     removeCarrinho(p, index){
       this.carrinho = JSON.parse(localStorage.getItem('products'));
-      this.carrinho.splice(index, index+1);
+      this.carrinho.shift(index);
       localStorage.setItem("products", JSON.stringify(this.carrinho));
+      this.carrinho = JSON.parse(localStorage.getItem('products'));
       this.totalCarrinho();
     },
     totalCarrinho(){

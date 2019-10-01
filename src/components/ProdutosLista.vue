@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="galeria-container col-2">
                         <div class="galeria">
-                            <img @click="changeImage($event.target)" v-for="img in produto.product.images" v-bind:src="img" width="40" height="40" />
+                            <img @click="changeImage($event.target)" v-for="img in produto.product.images" :src="img" alt="x" width="40" height="40" />
                         </div>
                     </div>
                     <div class="col-4">
@@ -37,6 +37,7 @@ export default {
 
     name : 'ProdutosLista',
     mounted(){
+        localStorage.setItem("products", JSON.stringify([]));
         this.getProdutos();
     },
     data(){
@@ -61,6 +62,7 @@ export default {
             $e.parentElement.parentElement.nextElementSibling.children[0].firstChild.src = $e.src;
         },
         addCarrinho(p){
+            this.carrinho = JSON.parse(localStorage.getItem("products"));
             this.carrinho.push(p);
             localStorage.removeItem("products");
             localStorage.setItem("products", JSON.stringify(this.carrinho));
