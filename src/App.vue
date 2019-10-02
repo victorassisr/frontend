@@ -270,6 +270,12 @@ export default {
   },
   methods : {
     toggleCarrinho(){
+        if(this.quantidade == 0){
+          this.showCarrinho = false;
+          this.linkAtivo = "";
+          alert('Carrinho vazio! Adicione itens!');
+         return;
+        }
         if(this.showCarrinho){
           this.showCarrinho = false;
           this.linkAtivo = "";
@@ -289,6 +295,10 @@ export default {
         localStorage.setItem("products",JSON.stringify([]));
         this.items = JSON.parse(localStorage.getItem('products'));
         this.quantidade = this.items.length;
+      }
+      if(this.quantidade == 0){
+        this.showCarrinho = false;
+        this.linkAtivo = "";
       }
     },
     removeCarrinho(p, index){
