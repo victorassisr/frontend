@@ -8,7 +8,7 @@
                             <img @click="changeImage($event.target)" v-for="img in produto.product.images" :src="img" alt="x" width="40" height="40" />
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4 mobile">
                         <div class="boxImgProduto">
                             <img :src="produto.product.images[0]" alt="Tv"/>
                         </div>
@@ -18,7 +18,7 @@
                             <p>{{produto.product.name}}</p>
                             <hr class="spliterProduto" />
                             <span class="badgePreco">Melhor preço</span><span class="back"></span>
-                            <p class="parcelasProduto">10 x de <span class="txtBig">R$ 344,10</span> <span @click="addCarrinho(produto.product)" class="addCarrinho">Adicionar ao carrinho <span class="badgeLink">></span></span></p>
+                            <p class="parcelasProduto">10 x de <span class="txtBig">R$ 344,10</span> <span @click="addCarrinho(produto.product)" class="addCarrinho">Adicionar ao carrinho <i class="badgeLink">></i></span></p>
                             <p class="total-a-vista">ou <span class="txtBig">3441,00</span> à vista</p>
                         </div>
                     </div>
@@ -113,6 +113,11 @@ export default {
         margin: 0 auto;
     }
 
+    .mobile{
+        flex: none;
+        max-width: 100%;
+    }
+
     .badgePreco{
         background-color: #038ee2;
         color: #FFF;
@@ -153,9 +158,10 @@ export default {
 
     .addCarrinho{
         text-decoration: none;
+        width: 100%;
         color: #FFF;
         background-color: #10b246;
-        padding: 4px;
+        padding: 4px 20px 4px 20px;
         font-size: 10px;
         border-radius: 4px;
         display: block;
@@ -165,16 +171,21 @@ export default {
 
     .badgeLink{
         font-weight: bolder;
-        font-size: 12px;
     }
 
     .total-a-vista{
         font-size: 12px;
     }
 
+
+    .boxImgProduto > img{
+        display: block;
+        margin: 0 auto;
+    }
+
     .media{
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
+        flex: none;
+        max-width: 100%;
     }
 
 
@@ -188,9 +199,23 @@ export default {
             display: block;
         }
 
-         .media{
-            flex: 0 0 50% !important;
-            max-width: 50% !important;
+        .media{
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .boxImgProduto > img{
+            display: block;
+            margin: 0 auto;
+        }
+
+        .addCarrinho{
+            width: fit-content;
+        }
+
+        .mobile{
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
         }
     }
 </style>
