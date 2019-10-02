@@ -18,7 +18,7 @@
 
     <div v-if="showCarrinho" class="container-fluid carrinho-container">
       <div class="carrinho">
-        <div class="produtoNoCarrinho clearFix" v-for="(c, index) in items" :key="c.id">
+        <div class="produtoNoCarrinho clearFix" v-for="(c, index) in items">
           <div class="imagemProduto">
             <img :src="c.images[0]" :alt="c.name" :title="c.name" />
           </div>
@@ -237,8 +237,9 @@ export default {
         this.items = JSON.parse(localStorage.getItem('products'));
     },
     removeCarrinho(p, index){
+      index = Number.parseInt(index);
       let temp = JSON.parse(localStorage.getItem("products"));
-      temp.splice(index, index+1);
+      temp.splice(index, 1);
       localStorage.setItem("products",JSON.stringify(temp));
       this.items = temp;
       this.savedProducts();
