@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="galeria-container col-2">
                         <div class="galeria">
-                            <img @click="changeImage($event.target)" v-for="img in produto.product.images" :src="img" alt="x" width="40" height="40" />
+                            <img @click="changeImage($event.target)" @error="testeSrc($event.target)" v-for="img in produto.product.images" :src="img" alt="x" width="40" height="40" />
                         </div>
                     </div>
                     <div class="col-4 mobile">
@@ -45,6 +45,7 @@ export default {
             urlApi : "https://raw.githubusercontent.com/buscape-company/exercicios/master/frontend/resources/data.json",
             produtos : [],
             carrinho : [],
+            imgDefault : "http://www.musicmemes.com/wp-content/themes/photobook/images/blank.png"
         }
     },
     methods : {
@@ -66,6 +67,10 @@ export default {
             this.carrinho.push(p);
             localStorage.removeItem("products");
             localStorage.setItem("products", JSON.stringify(this.carrinho));
+        },
+        testeSrc(el){
+            el.removeAttribute("src");
+            el.src = this.imgDefault;
         }
     },
     filters : {
