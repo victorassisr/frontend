@@ -10,7 +10,7 @@
                     </div>
                     <div class="col-4 mobile">
                         <div class="boxImgProduto">
-                            <img :src="produto.product.images[0]" alt="Tv"/>
+                            <img :src="produto.product.images[0]" :alt="produto.product.name"/>
                         </div>
                     </div>
                     <div class="col-6 media">
