@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="galeria-container col-2">
                         <div class="galeria">
-                            <img @click="changeImage($event.target)" @error="testeSrc($event.target)" v-for="img in produto.product.images" :src="img" alt="x" width="40" height="40" />
+                            <img @click="changeImage($event.target)" @error="testeSrc($event.target)" v-for="(img, index) in produto.product.images" :src="img" alt="x" width="40" height="40" />
                         </div>
                     </div>
                     <div class="col-4 mobile">
@@ -32,6 +32,7 @@
 <script>
 
 import axios from 'axios'
+import { EventBus } from '../../event-bus.js'
 
 export default {
 
@@ -41,8 +42,6 @@ export default {
         let isInit = JSON.parse(localStorage.getItem("products"));
         if(isInit == null){
             localStorage.setItem("products", JSON.stringify([]));
-        } else {
-
         }
         this.getProdutos();
     },
@@ -75,6 +74,7 @@ export default {
                 this.carrinho.push(p);
                 localStorage.removeItem("products");
                 localStorage.setItem("products", JSON.stringify(this.carrinho));
+                EventBus.$emit('addCarrinho');
                 alert("Adicionado!");
             } else {
                 localStorage.setItem("products", JSON.stringify(this.carrinho));
@@ -82,6 +82,7 @@ export default {
                 this.carrinho.push(p);
                 localStorage.removeItem("products");
                 localStorage.setItem("products", JSON.stringify(this.carrinho));
+                EventBus.$emit('addCarrinho');
                 alert("Adicionado!");
             }
         },

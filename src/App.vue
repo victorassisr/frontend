@@ -6,13 +6,14 @@
       </div>
 
       <div class="menu">
-        <a href="#" @click="toggleCarrinho()" :class="linkAtivo" title="Ver o Carrinho">Ver o Carrinho</a>
+        <a href="#" @click="toggleCarrinho()" :class="linkAtivo" title="Ver o Carrinho">Ver o Carrinho <span class="quantidadeMenu">({{quantidade}})</span></a>
       </div>
 
       <div class="toggleNav" @click="toggleCarrinho()">
         <div class="line"></div>
         <div class="line"></div>
         <div class="line"></div>
+        <span class="quantidade">{{quantidade}}</span>
       </div>
     </div>
 
@@ -179,6 +180,20 @@ body{
   cursor: pointer;
 }
 
+.quantidade{
+  display: block;
+  background-color: rgba(255,0,0,0.9);
+  color: #FFF;
+  font-size: 1.5em;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  top: -35px;
+  left: -20px;
+  text-align: center;
+}
+
 @media all and (min-width: 980px){
   .menu{
     display: block;
@@ -212,13 +227,36 @@ body{
 </style>
 
 <script>
+import { EventBus } from '../event-bus.js'
 export default {
+  created(){
+    EventBus.$on('addCarrinho', (tamanho)=>{
+      let val = JSON.parse(localStorage.getItem("products"));
+      if(val == null){
+        this.quantidade = 0;
+      }else {
+        this.quantidade = val.length;
+        this.savedProducts();
+      }
+    });
+
+    EventBus.$on('removeCarrinho', ()=>{
+      let val = JSON.parse(localStorage.getItem("products"));
+      if(val == null){
+        this.quantidade = 0;
+      }else {
+        this.quantidade = val.length;
+        this.savedProducts();
+      }
+    });
+  },
   data(){
     return {
       showCarrinho : false,
       linkAtivo : "",
       items : [],
-      total : 0
+      total : 0,
+      quantidade : 0
     }
   },
   methods : {
@@ -256,6 +294,7 @@ export default {
       } else {
         localStorage.setItem("products",JSON.stringify([]));
       }
+      EventBus.$emit('removeCarrinho');
     },
     totalCarrinho(){
       this.total = 0;
