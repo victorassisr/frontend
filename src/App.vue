@@ -234,16 +234,28 @@ export default {
         }
     },
     savedProducts(){
+      let test = JSON.parse(localStorage.getItem('products'));
+      if(test != null){
         this.items = JSON.parse(localStorage.getItem('products'));
+      } else {
+        localStorage.setItem("products",JSON.stringify([]));
+        this.items = JSON.parse(localStorage.getItem('products'));
+      }
     },
     removeCarrinho(p, index){
-      index = Number.parseInt(index);
-      let temp = JSON.parse(localStorage.getItem("products"));
-      temp.splice(index, 1);
-      localStorage.setItem("products",JSON.stringify(temp));
-      this.items = temp;
-      this.savedProducts();
-      this.totalCarrinho();
+      let test = JSON.parse(localStorage.getItem("products"));
+
+      if(test != null){
+        index = Number.parseInt(index);
+        let temp = JSON.parse(localStorage.getItem("products"));
+        temp.splice(index, 1);
+        localStorage.setItem("products",JSON.stringify(temp));
+        this.items = temp;
+        this.savedProducts();
+        this.totalCarrinho();
+      } else {
+        localStorage.setItem("products",JSON.stringify([]));
+      }
     },
     totalCarrinho(){
       this.total = 0;

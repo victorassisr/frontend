@@ -37,7 +37,13 @@ export default {
 
     name : 'ProdutosLista',
     mounted(){
-        localStorage.setItem("products", JSON.stringify([]));
+
+        let isInit = JSON.parse(localStorage.getItem("products"));
+        if(isInit == null){
+            localStorage.setItem("products", JSON.stringify([]));
+        } else {
+
+        }
         this.getProdutos();
     },
     data(){
@@ -63,11 +69,21 @@ export default {
             $e.parentElement.parentElement.nextElementSibling.children[0].firstChild.src = $e.src;
         },
         addCarrinho(p){
-            this.carrinho = JSON.parse(localStorage.getItem("products"));
-            this.carrinho.push(p);
-            localStorage.removeItem("products");
-            localStorage.setItem("products", JSON.stringify(this.carrinho));
-            alert("Adicionado!");
+            let temp = JSON.parse(localStorage.getItem("products")); //Evitar que dê erro se alguem apagar a variável no local storage;
+            if(temp != null){
+                this.carrinho = JSON.parse(localStorage.getItem("products"));
+                this.carrinho.push(p);
+                localStorage.removeItem("products");
+                localStorage.setItem("products", JSON.stringify(this.carrinho));
+                alert("Adicionado!");
+            } else {
+                localStorage.setItem("products", JSON.stringify(this.carrinho));
+                this.carrinho = JSON.parse(localStorage.getItem("products"));
+                this.carrinho.push(p);
+                localStorage.removeItem("products");
+                localStorage.setItem("products", JSON.stringify(this.carrinho));
+                alert("Adicionado!");
+            }
         },
         testeSrc(el){
             el.removeAttribute("src");
