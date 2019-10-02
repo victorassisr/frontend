@@ -18,7 +18,7 @@
 
     <div v-if="showCarrinho" class="container-fluid carrinho-container">
       <div class="carrinho">
-        <div class="produtoNoCarrinho clearFix" v-for="(c, index) in items">
+        <div class="produtoNoCarrinho clearFix" v-for="(c, index) in items" :key="c.id">
           <div class="imagemProduto">
             <img :src="c.images[0]" :alt="c.name" :title="c.name" />
           </div>
