@@ -67,6 +67,7 @@ export default {
             this.carrinho.push(p);
             localStorage.removeItem("products");
             localStorage.setItem("products", JSON.stringify(this.carrinho));
+            alert("Adicionado!");
         },
         testeSrc(el){
             el.removeAttribute("src");
