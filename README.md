@@ -9,3 +9,6 @@ Após instalar todas as dependencias rode o comando:
 npm run serve
 
 abra o navegador no endereço: http://localhost:8080/
+
+
+Dados sendo salvos em Local Storage.
