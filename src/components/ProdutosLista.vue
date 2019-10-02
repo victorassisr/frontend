@@ -126,6 +126,7 @@ export default {
     .mobile{
         flex: none;
         max-width: 100%;
+        padding-top: 20px;
     }
 
     .badgePreco{
