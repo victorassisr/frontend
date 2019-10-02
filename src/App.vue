@@ -230,6 +230,15 @@ body{
 import { EventBus } from '../event-bus.js'
 export default {
   created(){
+    let qntd = JSON.parse(localStorage.getItem("products"));
+
+    if(qntd != null){
+      this.quantidade = qntd.length;
+    } else {
+      this.qntd = 0;
+    }
+
+
     EventBus.$on('addCarrinho', (tamanho)=>{
       let val = JSON.parse(localStorage.getItem("products"));
       if(val == null){
@@ -275,9 +284,11 @@ export default {
       let test = JSON.parse(localStorage.getItem('products'));
       if(test != null){
         this.items = JSON.parse(localStorage.getItem('products'));
+        this.quantidade = this.items.length;
       } else {
         localStorage.setItem("products",JSON.stringify([]));
         this.items = JSON.parse(localStorage.getItem('products'));
+        this.quantidade = this.items.length;
       }
     },
     removeCarrinho(p, index){
