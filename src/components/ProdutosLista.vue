@@ -18,8 +18,8 @@
                             <p>{{produto.product.name}}</p>
                             <hr class="spliterProduto" />
                             <span class="badgePreco">Melhor preço</span><span class="back"></span>
-                            <p class="parcelasProduto">10 x de <span class="txtBig">R$ 344,10</span> <span @click="addCarrinho(produto.product)" class="addCarrinho">Adicionar ao carrinho <i class="badgeLink">></i></span></p>
-                            <p class="total-a-vista">ou <span class="txtBig">3441,00</span> à vista</p>
+                            <p class="parcelasProduto">{{produto.product.price.installments}} x de <span class="txtBig">R$ {{produto.product.price.installmentValue | numberFormat(produto.product.price.installmentValue)}}</span> <span @click="addCarrinho(produto.product)" class="addCarrinho">Adicionar ao carrinho <i class="badgeLink">></i></span></p>
+                            <p class="total-a-vista">ou <span class="txtBig">{{produto.product.price.value | numberFormat(produto.product.price.value)}}</span> à vista</p>
                         </div>
                     </div>
                 </div>
@@ -66,6 +66,11 @@ export default {
             this.carrinho.push(p);
             localStorage.removeItem("products");
             localStorage.setItem("products", JSON.stringify(this.carrinho));
+        }
+    },
+    filters : {
+        numberFormat(val){
+            return val.toFixed(2);
         }
     }
 }

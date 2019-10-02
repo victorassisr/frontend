@@ -25,15 +25,15 @@
           <div class="descricaoProduto">
             <p @click="removeCarrinho(c, index)" class="btnClose">X</p>
             <p class="nomeProduto">{{c.name}}</p>
-            <p class="valorParcelado">{{c.price.installments}} x R$ {{ c.price.installmentValue}}</p>
-            <p valorAVista>ou R$ {{c.price.value}}</p>
+            <p class="valorParcelado">{{c.price.installments}} x R$ {{ c.price.installmentValue | numberFormat(c.price.installmentValue)}}</p>
+            <p valorAVista>ou R$ {{c.price.value | numberFormat(c.price.value)}}</p>
           </div>
         </div>
         <div class="totalCarrinho container">
             <p class="subTotal">Subtotal</p>
             <hr class="spliter" />
             <p class="parcelas">10x de {{total | parcelar(total)}}</p>
-            <p class="totalAVista">ou {{total}} à vista.</p>
+            <p class="totalAVista">ou {{total | numberFormat(total) }} à vista.</p>
         </div>
       </div>
     </div>
@@ -255,6 +255,9 @@ export default {
     parcelar(val){
       val = val / 10;
       return parseFloat(val.toFixed(2));
+    },
+    numberFormat(val){
+      return val.toFixed(2);
     }
   }
 }
